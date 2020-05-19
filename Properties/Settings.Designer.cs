@@ -34,5 +34,23 @@ namespace busylight_client.Properties {
                 this["Location"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:50625/BusyHub")]
+        public string SignalR_Uri {
+            get {
+                return ((string)(this["SignalR_Uri"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
+        public int Ring_Time {
+            get {
+                return ((int)(this["Ring_Time"]));
+            }
+        }
     }
 }

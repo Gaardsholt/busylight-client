@@ -5,5 +5,11 @@
     <Setting Name="Location" Type="System.String" Scope="User">
       <Value Profile="(Default)">Brande</Value>
     </Setting>
+    <Setting Name="SignalR_Uri" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://localhost:50625/BusyHub</Value>
+    </Setting>
+    <Setting Name="Ring_Time" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">5000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

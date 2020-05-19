@@ -49,7 +49,7 @@ namespace busylight_client
         private async Task ConnectToServerAsync()
         {
             connection = new HubConnectionBuilder()
-                .WithUrl(new Uri("http://localhost:60376/DynamicChat"))
+                .WithUrl(new Uri(Settings.Default.SignalR_Uri))
                 .WithAutomaticReconnect()
                 .Build();
 
@@ -85,7 +85,7 @@ namespace busylight_client
                 var color = GetColorFromString(colorAsString);
 
                 busy.Alert(color, tune, Busylight.BusylightVolume.High);
-                await Task.Delay(5 * 1000);
+                await Task.Delay(Settings.Default.Ring_Time);
                 busy.Light(Busylight.BusylightColor.Off);
             });
 
