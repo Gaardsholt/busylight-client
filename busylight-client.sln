@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "busylight-client", "busylight-client.csproj", "{ED02AA75-7D32-457D-ACD3-C1C696A6918A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED02AA75-7D32-457D-ACD3-C1C696A6918A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED02AA75-7D32-457D-ACD3-C1C696A6918A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED02AA75-7D32-457D-ACD3-C1C696A6918A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED02AA75-7D32-457D-ACD3-C1C696A6918A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {774CBBD5-1B6F-441D-AB29-BBB667E5854B}
+	EndGlobalSection
+EndGlobal
