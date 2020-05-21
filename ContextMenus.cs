@@ -6,10 +6,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Resources;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -40,7 +36,7 @@ namespace busylight_client
             {
                 return Busylight.BusylightSoundClip.KuandoTrain;
             }
-            
+
         }
 
         //Microsoft.AspNetCore.SignalR.Client.HubConnection connection;
@@ -53,7 +49,7 @@ namespace busylight_client
                 .WithAutomaticReconnect()
                 .Build();
 
-            
+
             connection.Closed += async (error) =>
             {
                 await Task.Delay(new Random().Next(0, 5) * 1000);
@@ -95,7 +91,7 @@ namespace busylight_client
                 await connection.StartAsync();
                 await JoinGroup(Settings.Default.Location);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //Just let it fail?
             }
