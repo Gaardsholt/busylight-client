@@ -19,16 +19,16 @@ commands:
       - run:
           name: Download ghr
           command: |
-            curl -L https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_windows_386.zip --output ghr.zip
-            unzip ghr.zip
+            curl -L --output ghr.zip https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_windows_386.zip
+            unzip -u d C:\ghr ghr.zip
       - run:
           name: zip release
           command: |
-            zip /publish
-      # - run:
-      #     name: Create Github releases
-      #     command: |
-      #       ./ghr -replace $CIRCLE_TAG ./releases
+            tar.exe -a -c -f C:\publish\busylight-client.zip C:\publish\busylight-client.exe C:\publish\appsettings.json
+      - run:
+          name: Create Github releases
+          command: |
+            C:\ghr_v0.13.0_windows_386/ghr.exe -replace $CIRCLE_TAG C:\publish\busylight-client.zip
 
 jobs:
   build:
