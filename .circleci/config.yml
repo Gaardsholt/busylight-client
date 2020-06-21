@@ -1,13 +1,69 @@
- version: 2.1
+version: 2.1
 
- orbs:
-  win: circleci/windows@2.4.0
 
- jobs:
-   build:
-     executor: win/default     
-    
-     steps:
-       - checkout
-       - run: dotnet publish -r win-x64 -c Release -p:PublishSingleFile=true -p:PublishTrimmed=true
+executors:
+  go_image:
+    dotnet_image:
+      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
 
+# orbs:
+#   win: circleci/windows@2.4.0
+commands:
+  build:
+    steps:
+      - checkout
+      - run:
+          name: dotnet publish
+          command: |
+            mkdir /publish
+            dotnet publish -r win-x64 -c Release -p:PublishSingleFile=true -p:PublishTrimmed=true -o /publish
+  pusblish:
+    steps:
+      - run:
+          name: Download ghr
+          command: |
+            GHR_VERSION=v0.13.0
+            wget -O ghr.tar.gz https://github.com/tcnksm/ghr/releases/download/$GHR_VERSION/ghr_$GHR_VERSION\_linux_386.tar.gz
+            tar -xvzf ghr.tar.gz
+            sudo mv ghr_$GHR_VERSION\_linux_386/ghr /usr/local/bin
+      - run:
+          name: Create Github releases
+          command: |
+            ghr -replace $CIRCLE_TAG ./releases
+
+jobs:
+  build:
+    executor: dotnet_image
+    steps:
+      - build
+      - run:
+          name: list stuff
+          command: |
+            ls -lah /publish
+      
+  build-n-publish:
+    executor: dotnet_image
+    steps:
+      - build
+      - publish
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          context: gaardsholt
+          filters:
+            branches:
+              only: /.*/
+            tags:
+              ignore: /^v([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/
+  build-n-publish:
+    jobs:
+      - publish:
+          context: gaardsholt
+          filters:
+            tags:
+              only: /^v([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/
+            branches:
+              ignore: /.*/
