@@ -19,8 +19,7 @@ commands:
       - run:
           name: Download ghr
           command: |
-            GHR_VERSION=v0.13.0
-            wget -O ghr.zip https://github.com/tcnksm/ghr/releases/download/$GHR_VERSION/ghr_$GHR_VERSION\_windows_386.zip
+            curl -L https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_windows_386.zip --output ghr.zip
             unzip ghr.zip
       - run:
           name: zip release
