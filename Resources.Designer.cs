@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace busylight_client.Properties {
+namespace busylight_client {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace busylight_client.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("busylight_client.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("busylight_client.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -121,11 +121,12 @@ namespace busylight_client.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static string SelectedLocation {
+        internal static byte[] Surprise {
             get {
-                return ResourceManager.GetString("SelectedLocation", resourceCulture);
+                object obj = ResourceManager.GetObject("Surprise", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

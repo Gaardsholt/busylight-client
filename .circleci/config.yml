@@ -1,7 +1,7 @@
  version: 2.1
 
  orbs:
-  win: circleci/windows@2.2.0
+  win: circleci/windows@2.4.0
 
  jobs:
    build:
@@ -9,4 +9,5 @@
     
      steps:
        - checkout
-       - run: dotnet build
+       - run: dotnet publish -r win-x64 -c Release -p:PublishSingleFile=true -p:PublishTrimmed=true
+
