@@ -41,7 +41,7 @@ jobs:
           command: |
             ls -lah /publish
       
-  build-n-publish:
+  publish:
     executor: dotnet_image
     steps:
       - build
