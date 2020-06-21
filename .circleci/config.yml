@@ -19,13 +19,16 @@ commands:
           name: Download ghr
           command: |
             GHR_VERSION=v0.13.0
-            wget -O ghr.tar.gz https://github.com/tcnksm/ghr/releases/download/$GHR_VERSION/ghr_$GHR_VERSION\_linux_386.tar.gz
-            tar -xvzf ghr.tar.gz
-            sudo mv ghr_$GHR_VERSION\_linux_386/ghr /usr/local/bin
+            wget -O ghr.zip https://github.com/tcnksm/ghr/releases/download/$GHR_VERSION/ghr_$GHR_VERSION\_windows_386.zip
+            unzip ghr.zip
       - run:
-          name: Create Github releases
+          name: zip release
           command: |
-            ghr -replace $CIRCLE_TAG ./releases
+            zip /publish
+      # - run:
+      #     name: Create Github releases
+      #     command: |
+      #       ./ghr -replace $CIRCLE_TAG ./releases
 
 jobs:
   build:
@@ -35,7 +38,7 @@ jobs:
       - run:
           name: list stuff
           command: |
-            ls -lah /publish
+            ls /publish
       
   publish:
     executor: win/default
@@ -45,21 +48,21 @@ jobs:
 
 workflows:
   version: 2
-  build:
-    jobs:
-      - build:
-          context: gaardsholt
-          filters:
-            branches:
-              only: /.*/
-            tags:
-              ignore: /^v([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/
+  # build:
+  #   jobs:
+  #     - build:
+  #         context: gaardsholt
+  #         filters:
+  #           branches:
+  #             only: /.*/
+  #           tags:
+  #             ignore: /^v([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/
   build-n-publish:
     jobs:
       - publish:
           context: gaardsholt
-          filters:
-            tags:
-              only: /^v([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/
-            branches:
-              ignore: /.*/
+          # filters:
+          #   tags:
+          #     only: /^v([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/
+          #   branches:
+          #     ignore: /.*/
