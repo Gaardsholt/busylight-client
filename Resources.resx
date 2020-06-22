@@ -136,9 +136,6 @@
   <data name="Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Surprise" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Surprise.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="Yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
