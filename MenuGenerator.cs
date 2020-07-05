@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace busylight_client
@@ -32,7 +31,7 @@ namespace busylight_client
             menu.Items.Add(new ToolStripSeparator());
 
             var menuExit = new ToolStripMenuItem { Text = "E&xit" };
-            menuExit.Click += new EventHandler((a, b) => Application.Exit() );
+            menuExit.Click += new EventHandler((a, b) => Application.Exit());
             menu.Items.AddRange(new ToolStripMenuItem[] { menuExit });
 
             return menu;

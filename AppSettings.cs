@@ -1,10 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Resources;
-using System.Text;
 
 namespace busylight_client
 {
