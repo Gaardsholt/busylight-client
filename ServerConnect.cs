@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -45,6 +43,14 @@ namespace busylight_client
                 await JoinGroup(_settings.Location);
             };
 
+            connection.On("Police", async () =>
+            {
+                for (int i = 0; i < 400; i++)
+                {
+                    busy.Light(i % 2 == 0 ? Busylight.BusylightColor.Red : Busylight.BusylightColor.Blue);
+                    await Task.Delay(75);
+                }
+            });
             connection.On("SetColor", (string colorAsString) =>
             {
                 colorAsString = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(colorAsString?.ToLower());
@@ -68,9 +74,11 @@ namespace busylight_client
                 await JoinGroup(_settings.Location);
                 AddClickEvent();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //Just let it fail?
+
+                MessageBox.Show(e.Message, "Connection error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
             }
         }
 
