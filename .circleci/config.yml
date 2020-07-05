@@ -29,7 +29,7 @@ commands:
       - run:
           name: Create Github releases
           command: |
-            C:\github-release\bin\windows\amd64\github-release upload --user Gaardsholt --repo busylight-client --tag $CIRCLE_TAG --name "busylight-client.zip" --file "C:\publish\busylight-client.zip"
+            C:\github-release\bin\windows\amd64\github-release upload --user Gaardsholt --repo busylight-client --tag $env:CIRCLE_TAG --name "busylight-client.zip" --file "C:\publish\busylight-client.zip"
 
 jobs:
   build:
