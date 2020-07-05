@@ -57,13 +57,13 @@ workflows:
             branches:
               only: /.*/
             tags:
-              ignore: /^v([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/
+              ignore: /^[0-9]+(\.[0-9]+)*(-.*)*$/
   build-n-publish:
     jobs:
       - publish:
           context: gaardsholt
           filters:
             tags:
-              only: /^v([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/
+              only: /^[0-9]+(\.[0-9]+)*(-.*)*$/
             branches:
               ignore: /.*/
