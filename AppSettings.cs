@@ -15,6 +15,8 @@ namespace busylight_client
 
         public string Location => Configuration["AppSettings:Location"];
         public string SignalR_Uri => Configuration["AppSettings:SignalR_Uri"];
+        public string ApiKey => Configuration["AppSettings:ApiKey"];
+        public string KeyName => Configuration["AppSettings:KeyName"];
         public int Ring_Time
         {
             get

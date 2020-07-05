@@ -22,7 +22,10 @@ namespace busylight_client
             MenuItems = menuItems;
 
             connection = new HubConnectionBuilder()
-                .WithUrl(new Uri(_settings.SignalR_Uri))
+                .WithUrl(new Uri(_settings.SignalR_Uri), options =>
+                {
+                    options.Headers.Add(_settings.KeyName, _settings.ApiKey);
+                })
                 .WithAutomaticReconnect()
                 .Build();
         }
@@ -37,13 +40,9 @@ namespace busylight_client
                 await Task.Delay(new Random().Next(0, 5) * 1000);
                 await connection.StartAsync();
             };
-            connection.Reconnecting += async (error) =>
+            connection.Reconnected += async (_) =>
             {
-                await Task.Delay(1);
-            };
-            connection.Reconnected += async (error) =>
-            {
-                await Task.Delay(1);
+                await JoinGroup(_settings.Location);
             };
 
             connection.On("SetColor", (string colorAsString) =>
@@ -53,9 +52,9 @@ namespace busylight_client
                 var color = GetColorFromString(colorAsString);
                 busy.Light(color);
             });
-            connection.On("Ring", async (string colorAsString, string tuneAsString) =>
+            connection.On("Ring", async (string colorAsString, Busylight.BusylightSoundClip tune) =>
             {
-                var tune = GetTuneFromString(tuneAsString);
+                //var tune = GetTuneFromString(tuneAsString);
                 var color = GetColorFromString(colorAsString);
 
                 busy.Alert(color, tune, Busylight.BusylightVolume.High);
@@ -75,6 +74,7 @@ namespace busylight_client
             }
         }
 
+
         private async Task JoinGroup(string groupName)
         {
             await connection.InvokeAsync("JoinGroup", groupName);
@@ -93,18 +93,18 @@ namespace busylight_client
             }
             return Busylight.BusylightColor.Red;
         }
-        private static Busylight.BusylightSoundClip GetTuneFromString(string tuneAsString)
-        {
-            try
-            {
-                return (Busylight.BusylightSoundClip)Enum.Parse(typeof(Busylight.BusylightSoundClip), tuneAsString, true);
-            }
-            catch (Exception)
-            {
-                return Busylight.BusylightSoundClip.KuandoTrain;
-            }
+        //private static Busylight.BusylightSoundClip GetTuneFromString(string tuneAsString)
+        //{
+        //    try
+        //    {
+        //        return (Busylight.BusylightSoundClip)Enum.Parse(typeof(Busylight.BusylightSoundClip), tuneAsString, true);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return Busylight.BusylightSoundClip.KuandoTrain;
+        //    }
 
-        }
+        //}
         private void AddClickEvent()
         {
             foreach (var item in MenuItems)
