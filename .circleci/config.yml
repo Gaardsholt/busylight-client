@@ -21,7 +21,7 @@ commands:
           shell: bash.exe
           command: |
             curl -L --output ghr.zip https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_windows_386.zip
-            unzip -u -d C:\ghr ghr.zip
+            unzip -u -d C:/ghr ghr.zip
       - run:
           name: zip release
           command: |
