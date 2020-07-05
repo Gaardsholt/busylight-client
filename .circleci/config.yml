@@ -29,7 +29,7 @@ commands:
       - run:
           name: Create Github releases
           command: |
-            C:\ghr_v0.13.0_windows_386/ghr.exe -replace $CIRCLE_TAG C:\publish\busylight-client.zip
+            C:\ghr\ghr.exe -replace $CIRCLE_TAG C:\publish\busylight-client.zip
 
 jobs:
   build:
