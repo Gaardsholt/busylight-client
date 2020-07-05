@@ -24,12 +24,10 @@ commands:
             unzip -u -d C:\ghr ghr.zip
       - run:
           name: zip release
-          shell: bash.exe
           command: |
             tar.exe -a -c -f C:\publish\busylight-client.zip C:\publish\busylight-client.exe C:\publish\appsettings.json
       - run:
           name: Create Github releases
-          shell: bash.exe
           command: |
             C:\ghr_v0.13.0_windows_386/ghr.exe -replace $CIRCLE_TAG C:\publish\busylight-client.zip
 
