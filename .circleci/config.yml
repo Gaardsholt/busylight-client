@@ -17,11 +17,11 @@ commands:
   publish:
     steps:
       - run:
-          name: Download ghr
+          name: Download github-release
           shell: bash.exe
           command: |
-            curl -L --output ghr.zip https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_windows_386.zip
-            unzip -u -d C:/ghr ghr.zip
+            curl -L --output github-release.zip https://github.com/github-release/github-release/releases/download/v0.8.1/windows-amd64-github-release.zip
+            unzip -u -d C:/github-release github-release.zip
       - run:
           name: zip release
           command: |
@@ -29,7 +29,13 @@ commands:
       - run:
           name: Create Github releases
           command: |
-            C:\ghr\ghr_v0.13.0_windows_386\ghr.exe -replace $CIRCLE_TAG C:\publish\busylight-client.zip
+            C:\github-release\bin\windows\amd64\github-release upload \
+              --user Gaardsholt \
+              --repo busylight-client \
+              --tag $CIRCLE_TAG \
+              --name "busylight-client.zip" \
+              --file C:\publish\busylight-client.zip \
+              --replace
 
 jobs:
   build:
