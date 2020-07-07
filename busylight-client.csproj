@@ -6,9 +6,9 @@
     <RootNamespace>busylight_client</RootNamespace>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <UseWindowsForms>true</UseWindowsForms>
-	<PublishTrimmed>true</PublishTrimmed>
+    <PublishTrimmed>true</PublishTrimmed>
     <PublishReadyToRun>true</PublishReadyToRun>
-	<PublishSingleFile>true</PublishSingleFile>
+    <PublishSingleFile>true</PublishSingleFile>
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
@@ -43,7 +43,7 @@
   <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </None>
   </ItemGroup>
 
