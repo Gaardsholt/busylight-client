@@ -58,10 +58,10 @@ namespace busylight_client
                 var color = GetColorFromString(colorAsString);
                 busy.Light(color);
             });
-            connection.On("Ring", async (string colorAsString, Busylight.BusylightSoundClip tune) =>
+            connection.On("Ring", async () =>
             {
-                //var tune = GetTuneFromString(tuneAsString);
-                var color = GetColorFromString(colorAsString);
+                var tune = GetTuneFromString(_settings.Ring_Tune);
+                var color = GetColorFromString(_settings.Ring_Color);
 
                 busy.Alert(color, tune, Busylight.BusylightVolume.High);
                 await Task.Delay(_settings.Ring_Time);
@@ -101,18 +101,18 @@ namespace busylight_client
             }
             return Busylight.BusylightColor.Red;
         }
-        //private static Busylight.BusylightSoundClip GetTuneFromString(string tuneAsString)
-        //{
-        //    try
-        //    {
-        //        return (Busylight.BusylightSoundClip)Enum.Parse(typeof(Busylight.BusylightSoundClip), tuneAsString, true);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return Busylight.BusylightSoundClip.KuandoTrain;
-        //    }
+        private static Busylight.BusylightSoundClip GetTuneFromString(string tuneAsString)
+        {
+            try
+            {
+                return (Busylight.BusylightSoundClip)Enum.Parse(typeof(Busylight.BusylightSoundClip), tuneAsString, true);
+            }
+            catch (Exception)
+            {
+                return Busylight.BusylightSoundClip.KuandoTrain;
+            }
 
-        //}
+        }
         private void AddClickEvent()
         {
             foreach (var item in MenuItems)
