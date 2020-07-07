@@ -5,8 +5,12 @@ using System.Windows.Forms;
 
 namespace busylight_client
 {
+
+
     static class Program
     {
+
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>

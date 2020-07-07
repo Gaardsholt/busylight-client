@@ -24,7 +24,7 @@ namespace busylight_client
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
-            
+
         }
 
     }
