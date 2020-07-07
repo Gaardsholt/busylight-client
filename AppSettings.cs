@@ -8,29 +8,24 @@ namespace busylight_client
     public class Settings
     {
         public ResourceSet resourceSet = Resources.ResourceManager.GetResourceSet(CultureInfo.CurrentUICulture, true, true);
-        private IConfigurationRoot Configuration { get; set; }
+        private static IConfigurationRoot Configuration { get; set; }
 
-        public string Location => Configuration["AppSettings:Location"];
-        public string SignalR_Uri => Configuration["AppSettings:SignalR_Uri"];
-        public string ApiKey => Configuration["AppSettings:ApiKey"];
-        public string KeyName => Configuration["AppSettings:KeyName"];
-        public int Ring_Time
-        {
-            get
-            {
-                int.TryParse(Configuration["AppSettings:Ring_Time"], out int result);
-                return result == 0 ? 5000 : result;
-            }
-        }
-
+        public string Location => Configuration.GetValue("AppSettings:Location", "Brande");
+        public string SignalR_Uri => Configuration.GetValue<string>("AppSettings:SignalR_Uri");
+        public string ApiKey => Configuration.GetValue<string>("AppSettings:ApiKey");
+        public string KeyName => Configuration.GetValue("AppSettings:KeyName", "ApiKey");
+        public string Ring_Tune => Configuration.GetValue("AppSettings:Ring_Tune", "OpenOffice");
+        public string Ring_Color => Configuration.GetValue("AppSettings:Ring_Color", "Red");
+        public int Ring_Time => Configuration.GetValue("AppSettings:Ring_Time", 5000);
 
         public Settings()
         {
-            var builder = new ConfigurationBuilder()
+            Configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
-            Configuration = builder.Build();
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+            
         }
+
     }
 }
