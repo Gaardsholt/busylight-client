@@ -24,21 +24,18 @@ namespace busylight_client
                 {
                     options.Headers.Add(_settings.KeyName, _settings.ApiKey);
                 })
-                .WithAutomaticReconnect()
                 .Build();
         }
-
-
 
         public async Task Connect()
         {
 
-            connection.Closed += async (error) =>
+            connection.Closed += async error =>
             {
                 await Task.Delay(new Random().Next(0, 5) * 1000);
-                await connection.StartAsync();
+                await ConnectWithRetryAsync();
             };
-            connection.Reconnected += async (_) =>
+            connection.Reconnected += async error =>
             {
                 await JoinGroup(_settings.Location);
             };
@@ -79,6 +76,24 @@ namespace busylight_client
 
                 MessageBox.Show(e.Message, "Connection error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
+            }
+
+
+            async Task<bool> ConnectWithRetryAsync()
+            {
+                while (true)
+                {
+                    try
+                    {
+                        await connection.StartAsync();
+                        return true;
+                    }
+  
+                    catch
+                    {
+                        await Task.Delay(5000);
+                    }
+                }
             }
         }
 
