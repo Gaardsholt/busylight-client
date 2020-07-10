@@ -12,7 +12,7 @@ commands:
           name: dotnet publish
           command: |
             mkdir /publish
-            dotnet publish -r win-x64 -c Release -p:PublishSingleFile=true -p:PublishTrimmed=true -o /publish
+            dotnet publish -r win-x64 -c Release -p:PublishSingleFile=true -p:PublishTrimmed=true -p:Version=$env:CIRCLE_TAG -o /publish
             ls /publish
   publish:
     steps:
@@ -36,10 +36,6 @@ jobs:
     executor: win/default
     steps:
       - build
-      - run:
-          name: list stuff
-          command: |
-            ls /publish
       
   publish:
     executor: win/default
