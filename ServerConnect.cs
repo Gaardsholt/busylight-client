@@ -86,6 +86,7 @@ namespace busylight_client
                     try
                     {
                         await connection.StartAsync();
+                        await JoinGroup(_settings.Location);
                         return true;
                     }
   
