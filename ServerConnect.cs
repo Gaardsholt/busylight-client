@@ -33,10 +33,10 @@ namespace busylight_client
 
             connection.Closed += async error =>
             {
-                ToggleColorMenu();
+                ToggleColorMenu(false);
                 await Task.Delay(new Random().Next(0, 5) * 1000);
                 await ConnectWithRetryAsync();
-                ToggleColorMenu();
+                ToggleColorMenu(true);
             };
             connection.Reconnected += async error =>
             {
@@ -150,7 +150,7 @@ namespace busylight_client
                 }
             }
         }
-        private void ToggleColorMenu()
+        private void ToggleColorMenu(bool enable)
         {
             foreach (var item in _menu.Items)
             {
@@ -159,7 +159,7 @@ namespace busylight_client
                     var aa = item as ToolStripMenuItem;
                     if ((string)aa.Tag == "Color")
                     {
-                        Action enableAction = delegate () { aa.Enabled = !aa.Enabled; };
+                        Action enableAction = delegate () { aa.Enabled = enable; };
                         _menu.BeginInvoke(enableAction);
                     }
 
