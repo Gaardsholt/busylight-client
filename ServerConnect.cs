@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -11,13 +12,13 @@ namespace busylight_client
         private static Busylight.SDK busy = new Busylight.SDK();
         HubConnection connection;
 
-        public ToolStripItemCollection MenuItems;
+        public ContextMenuStrip _menu;
         private static Settings _settings;
 
-        public ServerConnect(Settings settings, ToolStripItemCollection menuItems)
+        public ServerConnect(Settings settings, ContextMenuStrip menu)
         {
             _settings = settings;
-            MenuItems = menuItems;
+            _menu = menu;
 
             connection = new HubConnectionBuilder()
                 .WithUrl(new Uri(_settings.SignalR_Uri), options =>
@@ -32,8 +33,10 @@ namespace busylight_client
 
             connection.Closed += async error =>
             {
+                ToggleColorMenu();
                 await Task.Delay(new Random().Next(0, 5) * 1000);
                 await ConnectWithRetryAsync();
+                ToggleColorMenu();
             };
             connection.Reconnected += async error =>
             {
@@ -67,8 +70,7 @@ namespace busylight_client
 
             try
             {
-                await connection.StartAsync();
-                await JoinGroup(_settings.Location);
+                await ConnectWithRetryAsync();
                 AddClickEvent();
             }
             catch (Exception e)
@@ -90,12 +92,13 @@ namespace busylight_client
                         return true;
                     }
   
-                    catch
+                    catch (Exception e)
                     {
                         await Task.Delay(5000);
                     }
                 }
             }
+            return;
         }
 
 
@@ -131,7 +134,7 @@ namespace busylight_client
         }
         private void AddClickEvent()
         {
-            foreach (var item in MenuItems)
+            foreach (var item in _menu.Items)
             {
                 if (item is ToolStripMenuItem)
                 {
@@ -144,6 +147,22 @@ namespace busylight_client
                             await SendToSelf(aa.Name);
                         };
                     }
+                }
+            }
+        }
+        private void ToggleColorMenu()
+        {
+            foreach (var item in _menu.Items)
+            {
+                if (item is ToolStripMenuItem)
+                {
+                    var aa = item as ToolStripMenuItem;
+                    if ((string)aa.Tag == "Color")
+                    {
+                        Action enableAction = delegate () { aa.Enabled = !aa.Enabled; };
+                        _menu.BeginInvoke(enableAction);
+                    }
+
                 }
             }
         }

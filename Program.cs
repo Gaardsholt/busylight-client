@@ -5,12 +5,8 @@ using System.Windows.Forms;
 
 namespace busylight_client
 {
-
-
     static class Program
     {
-
-
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -20,7 +16,6 @@ namespace busylight_client
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
 
 
 
@@ -37,7 +32,7 @@ namespace busylight_client
 
 
 
-            var serverConnect = new ServerConnect(settings, menuGen.Menu.Items);
+            var serverConnect = new ServerConnect(settings, menuGen.Menu);
             Task.Run(() => serverConnect.Connect());
 
 
