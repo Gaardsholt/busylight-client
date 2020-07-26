@@ -14,11 +14,13 @@ namespace busylight_client
 
         public ContextMenuStrip _menu;
         private static Settings _settings;
+        private static Busylight.BusylightColor _idleColor;
 
         public ServerConnect(Settings settings, ContextMenuStrip menu)
         {
             _settings = settings;
             _menu = menu;
+            _idleColor = GetColorFromString(_settings.Idle_Color);
 
             connection = new HubConnectionBuilder()
                 .WithUrl(new Uri(_settings.SignalR_Uri), options =>
@@ -65,13 +67,14 @@ namespace busylight_client
 
                 busy.Alert(color, tune, Busylight.BusylightVolume.High);
                 await Task.Delay(_settings.Ring_Time);
-                busy.Light(Busylight.BusylightColor.Off);
+                busy.Light(_idleColor);
             });
 
             try
             {
                 await ConnectWithRetryAsync();
                 AddClickEvent();
+                busy.Light(_idleColor);
             }
             catch (Exception e)
             {

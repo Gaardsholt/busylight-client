@@ -17,6 +17,7 @@ namespace busylight_client
         public string Ring_Tune => Configuration.GetValue("AppSettings:Ring_Tune", "OpenOffice");
         public string Ring_Color => Configuration.GetValue("AppSettings:Ring_Color", "Red");
         public int Ring_Time => Configuration.GetValue("AppSettings:Ring_Time", 5000);
+        public string Idle_Color => Configuration.GetValue("AppSettings:Idle_Color", "Off");
 
         public Settings()
         {
