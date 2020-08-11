@@ -94,7 +94,7 @@ namespace busylight_client
                         await JoinGroup(_settings.Location);
                         return true;
                     }
-  
+
                     catch (Exception e)
                     {
                         await Task.Delay(5000);
@@ -169,10 +169,10 @@ namespace busylight_client
                         }
                         catch (Exception e)
                         {
-                            var jjaa = e;
-                            throw;
+                            // var jjaa = e;
+                            // throw;
                         }
-                        
+
                     }
 
                 }
