@@ -162,8 +162,17 @@ namespace busylight_client
                     var aa = item as ToolStripMenuItem;
                     if ((string)aa.Tag == "Color")
                     {
-                        Action enableAction = delegate () { aa.Enabled = enable; };
-                        _menu.BeginInvoke(enableAction);
+                        try
+                        {
+                            Action enableAction = delegate () { aa.Enabled = enable; };
+                            _menu.BeginInvoke(enableAction);
+                        }
+                        catch (Exception e)
+                        {
+                            var jjaa = e;
+                            throw;
+                        }
+                        
                     }
 
                 }
