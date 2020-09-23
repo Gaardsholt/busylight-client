@@ -17,27 +17,7 @@ namespace busylight_client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-
-
-            var settings = new Settings();
-            var menuGen = new MenuGenerator(settings);
-
-            var notifyIcon1 = new NotifyIcon()
-            {
-                Icon = settings.resourceSet.GetObject("icon") as Icon,
-                ContextMenuStrip = menuGen.Menu,
-                Text = "Busylight client",
-                Visible = true
-            };
-
-
-
-            var serverConnect = new ServerConnect(settings, menuGen.Menu);
-            Task.Run(() => serverConnect.Connect());
-
-
-
-            Application.Run();
+            Application.Run(new MyApplicationContext());
         }
     }
 }
