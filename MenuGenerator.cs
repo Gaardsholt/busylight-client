@@ -21,6 +21,7 @@ namespace busylight_client
         private static ContextMenuStrip GenerateMenu()
         {
             var menu = new ContextMenuStrip();
+            menu.SuspendLayout();
 
             menu.Items.AddRange(new ToolStripItem[]
             {
@@ -30,9 +31,9 @@ namespace busylight_client
             menu.Items.AddRange(GetColorMenu());
             menu.Items.Add(new ToolStripSeparator());
 
-            var menuExit = new ToolStripMenuItem { Text = "E&xit" };
-            menuExit.Click += new EventHandler((a, b) => Application.Exit());
-            menu.Items.AddRange(new ToolStripMenuItem[] { menuExit });
+            menu.Items.Add("Exit", _settings.resourceSet.GetObject("Exit") as Image, (a, b) => Application.Exit());
+
+            menu.ResumeLayout(false);
 
             return menu;
         }
