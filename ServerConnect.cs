@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using System;
-using System.ComponentModel;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -95,7 +94,7 @@ namespace busylight_client
                         return true;
                     }
 
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         await Task.Delay(5000);
                     }
@@ -167,7 +166,7 @@ namespace busylight_client
                             Action enableAction = delegate () { aa.Enabled = enable; };
                             _menu.BeginInvoke(enableAction);
                         }
-                        catch (Exception e)
+                        catch (Exception)
                         {
                             // var jjaa = e;
                             // throw;
