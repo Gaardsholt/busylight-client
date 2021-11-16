@@ -163,7 +163,7 @@ namespace busylight_client
                     {
                         try
                         {
-                            Action enableAction = delegate () { aa.Enabled = enable; };
+                            void enableAction() => aa.Enabled = enable;
                             _menu.BeginInvoke(enableAction);
                         }
                         catch (Exception)

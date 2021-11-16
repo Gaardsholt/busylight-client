@@ -46,13 +46,13 @@ namespace busylight_client
                 if (name == "Exit")
                     continue;
 
-                if (entry.Value is Bitmap)
+                if (entry.Value is Bitmap bitmap)
                 {
                     var someMenuItem = new ToolStripMenuItem
                     {
                         Name = name,
                         Text = name,
-                        Image = (Bitmap)entry.Value,
+                        Image = bitmap,
                         Enabled = false,
                         Tag = "Color"
                     };
