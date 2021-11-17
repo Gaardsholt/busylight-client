@@ -23,7 +23,7 @@ commands:
             }
 
             mkdir C:/publish
-            ~/.dotnet/dotnet publish -r win-x64 --self-contained true -c Release -p:PublishSingleFile=true -p:Version=$env:CIRCLE_TAG -o C:/publish
+            ~/.dotnet/dotnet publish -r win-x64 --self-contained true -c Release -p:PublishSingleFile=true -p:Version=$version -o C:/publish
             tree C:/publish
             ls C:/publish
       - run:
