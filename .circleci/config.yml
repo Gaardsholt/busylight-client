@@ -16,6 +16,12 @@ commands:
       - run:
           name: dotnet publish
           command: |
+            $version = $env:CIRCLE_TAG
+            if ( $version -eq "" -or $version -eq $null )
+            {
+                $version = "1.0.0"
+            }
+
             mkdir C:/publish
             ~/.dotnet/dotnet publish -r win-x64 --self-contained true -c Release -p:PublishSingleFile=true -p:Version=$env:CIRCLE_TAG -o C:/publish
             tree C:/publish
@@ -24,14 +30,14 @@ commands:
           name: zip release
           command: |
             tar.exe -a -c -f C:\publish\busylight-client.zip C:\publish\busylight-client.exe C:\publish\appsettings.json
-  publish:
-    steps:
       - run:
           name: Download github-release
           shell: bash.exe
           command: |
             curl -L --output github-release.zip https://github.com/github-release/github-release/releases/download/v0.8.1/windows-amd64-github-release.zip
             unzip -u -d C:/github-release github-release.zip
+  publish:
+    steps:
       - run:
           name: Create Github releases
           command: |
