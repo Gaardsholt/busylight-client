@@ -17,7 +17,7 @@ commands:
           name: dotnet publish
           command: |
             mkdir /publish
-            dotnet publish -r win-x64 -c Release -p:PublishSingleFile=true -p:Version=$env:CIRCLE_TAG -o /publish
+            ~/.dotnet publish -r win-x64 -c Release -p:PublishSingleFile=true -p:Version=$env:CIRCLE_TAG -o /publish
             ls /publish/publish
   publish:
     steps:
