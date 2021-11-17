@@ -18,7 +18,7 @@ commands:
           command: |
             mkdir /publish
             ~/.dotnet/dotnet publish -r win-x64 --self-contained true -c Release -p:PublishSingleFile=true -p:Version=$env:CIRCLE_TAG -o /publish
-            tree publish
+            tree
       - run:
           name: zip release
           command: |
