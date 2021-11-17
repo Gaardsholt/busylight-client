@@ -9,6 +9,11 @@ commands:
     steps:
       - checkout
       - run:
+          name: do stuff
+          command: |
+            # Run a separate PowerShell process because the script calls exit, so it will end the current PowerShell session.
+            &powershell -NoProfile -ExecutionPolicy unrestricted -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; &([scriptblock]::Create((Invoke-WebRequest -UseBasicParsing 'https://dot.net/v1/dotnet-install.ps1'))) -Version '6.0.0'
+      - run:
           name: dotnet publish
           command: |
             mkdir /publish
@@ -33,8 +38,7 @@ commands:
 
 jobs:
   build:
-    machine:
-      image: windows-server-2022-vs2022:stable
+    executor: win/default
     steps:
       - build
       
