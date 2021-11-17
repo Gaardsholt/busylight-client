@@ -34,7 +34,7 @@ commands:
 jobs:
   build:
     machine:
-      image: windows-server-2019-vs2022:stable
+      image: windows-server-2022-vs2022:stable
     steps:
       - build
       
