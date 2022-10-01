@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -64,7 +64,7 @@ namespace busylight_client
                 var tune = GetTuneFromString(_settings.Ring_Tune);
                 var color = GetColorFromString(_settings.Ring_Color);
 
-                busy.Alert(color, tune, Busylight.BusylightVolume.High);
+                    busy.Alert(color, tune, GetVolumeFromInt(_settings.Ring_Volume));
                 await Task.Delay(_settings.Ring_Time);
                 busy.Light(_idleColor);
             });
@@ -132,7 +132,17 @@ namespace busylight_client
             {
                 return Busylight.BusylightSoundClip.KuandoTrain;
             }
-
+        }
+        private static Busylight.BusylightVolume GetVolumeFromInt(int volumeAsInt)
+        {
+            try
+            {
+                return (Busylight.BusylightVolume)volumeAsInt;
+            }
+            catch (Exception)
+            {
+                return Busylight.BusylightVolume.High;
+            }
         }
         private void AddClickEvent()
         {
