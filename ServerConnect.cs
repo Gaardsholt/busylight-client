@@ -1,6 +1,8 @@
-using Microsoft.AspNetCore.SignalR.Client;
+﻿using Microsoft.AspNetCore.SignalR.Client;
+using NetCoreAudio;
 using System;
 using System.Globalization;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -61,12 +63,40 @@ namespace busylight_client
             });
             connection.On("Ring", async () =>
             {
-                var tune = GetTuneFromString(_settings.Ring_Tune);
-                var color = GetColorFromString(_settings.Ring_Color);
+                
+                if (!string.IsNullOrEmpty(_settings.Custom_Sound))
+                {
+                    var soundIsPlaying = true;
+
+                    Player player = new Player();
+                    await player.SetVolume((byte)_settings.Ring_Volume);
+                    player.PlaybackFinished += (sender, args) =>
+                    {
+                        // This event is triggered even if the player still has 1 or 2 seconds to play.
+                        busy.Light(_idleColor);
+                        soundIsPlaying = false;
+                    };
+                    await player.Play(_settings.Custom_Sound);
+
+                    var redOrBlue = true;
+                    while (soundIsPlaying)
+                    {
+                        busy.Light(redOrBlue ? Busylight.BusylightColor.Red : Busylight.BusylightColor.Blue);
+                        redOrBlue = !redOrBlue;
+                        await Task.Delay(75);
+                    }
+
+                }
+                else
+                {
+                    var tune = GetTuneFromString(_settings.Ring_Tune);
+                    var color = GetColorFromString(_settings.Ring_Color);
 
                     busy.Alert(color, tune, GetVolumeFromInt(_settings.Ring_Volume));
-                await Task.Delay(_settings.Ring_Time);
-                busy.Light(_idleColor);
+                    await Task.Delay(_settings.Ring_Time);
+                    busy.Light(_idleColor);
+                }
+
             });
 
             try

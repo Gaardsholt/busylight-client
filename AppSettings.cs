@@ -1,7 +1,9 @@
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Resources;
+using System.Windows.Forms;
 
 namespace busylight_client
 {
@@ -19,6 +21,8 @@ namespace busylight_client
         public int Ring_Time => Configuration.GetValue("AppSettings:Ring_Time", 5000);
         public int Ring_Volume => Configuration.GetValue("AppSettings:Ring_Volume", 100);
         public string Idle_Color => Configuration.GetValue("AppSettings:Idle_Color", "Off");
+        public string Custom_Sound => Configuration.GetValue<string>("AppSettings:Custom_Sound");
+
 
         public Settings()
         {
@@ -27,6 +31,12 @@ namespace busylight_client
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
+            if (!string.IsNullOrEmpty(this.Custom_Sound))
+                if (!File.Exists(this.Custom_Sound))
+                {
+                    MessageBox.Show($"The file {this.Custom_Sound} does not exists !", "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Environment.Exit(1);
+                }
         }
 
     }
