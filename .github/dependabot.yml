@@ -9,6 +9,6 @@ updates:
     directory: "/" # Location of package manifests
     open-pull-requests-limit: 10
     schedule:
-      interval: "daily"
+      interval: "monthly"
     reviewers:
       - "gaardsholt"
